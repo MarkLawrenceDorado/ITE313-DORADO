@@ -1,3 +1,12 @@
+ /* COLOR PALETTE (I based this color palette on Stray Kids' Album 'Go Live' "GO生" Album Art)
+   Primary: #F23D3D - Header, footer, headings
+   Secondary: #F25757  - Nav background, borders
+   Accent: #F28080  - Highlight/emphasis text
+   Neutral: #A4A5A6  - Section/aside backgrounds
+   Background: #F2F2F2  - Main content background
+   Text: #0D0D0D  - Main text color 
+*/
+
 /* --Reset and Base Style-- */
 * {
     margin: 0;
