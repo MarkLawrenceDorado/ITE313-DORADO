@@ -1,5 +1,5 @@
 /* --Reset and Base Style-- */
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -7,14 +7,14 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f3f5;
+    background-color: #F2F2F2;
     color: #0D0D0D;
     line-height: 1.6;
     padding: 20px;
 }
 
 /* --Header Styles-- */
-header{
+header {
     background-color: #F23D3D;
     color: white;
     padding: 30px 20px;
@@ -22,7 +22,7 @@ header{
     border-radius: 10px 10px 0 0;
 }
 
-header h1{
+header h1 {
     font-size: 2.5em;
     margin-bottom: 10px;
 }
@@ -37,7 +37,7 @@ nav {
     flex-wrap: wrap;
 }
 
-nav a{
+nav a {
     color: white;
     text-decoration: none;
     font-weight: bold;
@@ -46,31 +46,31 @@ nav a{
     transition: background-color 0.3s ease;
 }
 
-nav a:hover{
+nav a:hover {
     background-color: #F23D3D;
     color: white;
 }
 
 /* --Main Content Style-- */
 main {
-    background-color: white;
+    background-color: #F2F2F2;
     padding: 30px;
     border-radius: 0 0 10px 10px;
     margin-bottom: 20px;
 }
 
 section {
-    background-color: #f8f9fa;
+    background-color: #A4A5A6;
     padding: 25px;
     margin-bottom: 25px;
     border-radius: 8px;
-    border-left: 5px solid F25757;
+    border-left: 5px solid #F25757;
 }
 
 section h2 {
     color: #F23D3D;
     margin-bottom: 15px;
-    border-bottom: 2px solid #A4A5A6;
+    border-bottom: 2px solid #F2F2F2;
     padding-bottom: 10px;
 }
 
@@ -80,7 +80,7 @@ aside {
     padding: 25px;
     border-radius: 8px;
     margin-bottom: 20px;
-    border: 2px solid F25757;
+    border: 2px solid #F25757;
 }
 
 aside h3 {
@@ -89,7 +89,6 @@ aside h3 {
 }
 
 /* --Footer Style-- */
-
 footer {
     background-color: #F23D3D;
     color: white;
@@ -99,35 +98,56 @@ footer {
     font-size: 0.9em;
 }
 
-/* --List Style-- */
-ul{
-    list-style-type: square;
-    padding-left:25px;
-}
-
-ul li{
-    margin:8px 0;
-    color: #0D0D0D;
-}
-
---Custom Classes--
-.highlight{
-    color: #F28080;
+footer a {
+    color: white;
     font-weight: bold;
 }
 
-.project-item{
-    background-color: #f8f9fa;
+footer a:hover {
+    color: #F2F2F2;
+}
+
+/* --List Style-- */
+ul {
+    list-style-type: square;
+    padding-left: 25px;
+}
+
+ul li {
+    margin: 8px 0;
+    color: #0D0D0D;
+}
+
+/* --Custom Classes-- */
+.highlight {
+    color: #F23D3D;
+    font-weight: bold;
+}
+
+.project-item {
+    background-color: #F2F2F2;
     padding: 15px;
     margin: 10px 0;
     border-radius: 5px;
     border: 1px solid #A4A5A6;
 }
 
-.project-item h3{
+.project-item h3 {
     color: #F23D3D;
 }
 
-.button:hover{
-    background-color: #d35400;
+.button {
+    display: inline-block;
+    background-color: #F23D3D;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 15px;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #F25757;
 }
