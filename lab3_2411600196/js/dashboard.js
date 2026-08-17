@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function(){
     populateActivityTable();
     setupLogout();
 
-    const userNameSpan = document.getElementById('username');
+    const userNameSpan = document.getElementById('userName');
     if(userNameSpan){
         userNameSpan.textContent = username;
     }
@@ -39,18 +39,18 @@ function updateGreeting(username){
 
 function updateStatistics(){
     const stats = [
-        {title: 'Total Orders', value: '1,284', color: 'text-primary', icon: ''},
-        {title: 'Revenue', value: '$45,230', color: 'text-success', icon: ''},
-        {title: 'New Customers', value: '342', color: 'text-info', icon: ''},
-        {title: 'Return Rate', value: '2.4%', color: 'text-warning', icon: ''}
+        {title: 'Total Orders', value: '1,284', color: 'text-primary', icon: '📦'},
+        {title: 'Revenue', value: '$45,230', color: 'text-success', icon: '💰'},
+        {title: 'New Customers', value: '342', color: 'text-info', icon: '👥'},
+        {title: 'Return Rate', value: '2.4%', color: 'text-warning', icon: '📊'}
     ];
 
     const cardTitles = document.querySelectorAll('[id^="stat"][id$="-title"]');
-    const cardValues = document.querySelectorAll('[id^="stat"][id$="-title"]');
+    const cardValues = document.querySelectorAll('[id^="stat"][id$="-value"]');
 
     stats.forEach((stat, index) =>{
-        const titleElement = document.getElementById(`stat${index + 1} - title`);
-        const valueElement = document.getElementById(`stat${index + 1} - value`);
+        const titleElement = document.getElementById(`stat${index + 1}-title`);
+        const valueElement = document.getElementById(`stat${index + 1}-value`);
 
         if(titleElement){
             titleElement.textContent = `${stat.icon} ${stat. title}`;
@@ -71,8 +71,8 @@ function populateActivityTable(){
         {date: '2026-08-10 13:15', activity: 'Customer support ticket resolved', status: 'info'},
         {date: '2026-08-10 11:45', activity: 'Product inventory updated', status: 'warning'},
         {date: '2026-08-10 09:00', activity: 'New customer signed up', status: 'success'},
-        {date: '2026-08-09 16:20', activity: 'Payment received for invoice #-312', status: 'success'},
-        {date: '2026-08-09 14:3=10', activity: 'Shipping delay reported for order #ord-4521', status: 'danger'}
+        {date: '2026-08-09 16:20', activity: 'Payment received for invoice #INV-312', status: 'success'},
+        {date: '2026-08-09 14:30', activity: 'Shipping delay reported for order #ORD-4521', status: 'danger'}
     ];
 
     tableBody.innerHTML= '';
@@ -89,8 +89,9 @@ function populateActivityTable(){
         row.innerHTML = `
             <td>${activity.date}</td>
             <td>${activity.activity}</td>
-            <td><span class="badge ${badgeClass}>${activity.status}</span></td>
+            <td><span class="badge ${badgeClass}">${activity.status}</span></td>
         `;
+        tableBody.appendChild(row);
     });
 }
 
@@ -110,7 +111,7 @@ function setupLogout(){
         logoutBtn.addEventListener('click', performLogout);
     }
     if(logoutLink){
-        logoutBtn.addEventListener('click', performLogout);
+        logoutLink.addEventListener('click', performLogout);
     }
   
 }

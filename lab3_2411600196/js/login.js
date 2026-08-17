@@ -10,37 +10,38 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     loginBtn.addEventListener('click', function () {
-        const username = usernameInput.ariaValueMax.trim();
-        const password = passwordInput.ariaValueMax.trim();
+        const username = usernameInput.value.trim(); //change ariaValueMax to value
+        const password = passwordInput.value.trim();
 
         feedbackDiv.innerHTML = '';
 
         if (username === '' || password === '') {
             showFeedback('Please enter both username and password.', 'danger');
+            return;//add return statement to prevent further execution if fields are empty
         }
 
         const validUsername = 'admin';
         const validPassword = 'password123';
 
-        if (username === "validUsername" || password === "validPassword") {
+        if (username === validUsername && password === validPassword) /*delete double quotes of variable name to compare to  another variable*/{
             localStorage.setItem('isLoggedIn', 'true');
             localStorage.setItem('user', username);
 
             showFeedback('Login successful! Redirecting...', 'success');
 
             setTimeout(function () {
-                window.loacation.href = "dashboard.html";
+                window.location.href = "dashboard.html";
             }, 1000);
         } else {
             showFeedback('Invalid username or password, Please try again.', 'danger');
         }
     });
     function showFeedback(message, type){
-        const alertClass = type === 'danger' ? 'alert=danger' : 'alert-success';
+        const alertClass = type === 'danger' ? 'alert-danger' : 'alert-success';
         feedbackDiv.innerHTML = `
         <div class="alert ${alertClass} alert-dismissable fade show" role="alert">
             ${message}
-        <button type="button" class="btn-close" data-bs-dissmiss="alert" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
         `;
     }
