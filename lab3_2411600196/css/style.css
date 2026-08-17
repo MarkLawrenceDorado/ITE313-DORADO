@@ -1,8 +1,8 @@
 :root{
-    --bs-primary: #0d5c3e;
-    --bs-primary-rgb: 13, 92, 62;
-    --bs-secondary: #1a936f;
-    --bs-secondary-rgb: 26, 147, 111;
+    --bs-primary: #F23D3D;
+    --bs-primary-rgb: 242, 61, 61;
+    --bs-secondary: #F25757;
+    --bs-secondary-rgb: 242, 87, 87;
     --bs-success: #28a745;
     --bs-info: #17a2b8;
     --bs-warning: #f3a712;
@@ -97,7 +97,8 @@ body{
 }
 
 .shadow-hover{
-    transition: box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /*Added transform*/
+
 }
 
 .shadow-hover:hover{
