@@ -1,20 +1,20 @@
 :root{
-    --bs-primary: #F23D3D;
-    --bs-primary-rgb: 242, 61, 61;
-    --bs-secondary: #F25757;
-    --bs-secondary-rgb: 242, 87, 87;
+    --bs-primary: #122A59;
+    --bs-primary-rgb: 18, 42, 89;
+    --bs-secondary: #223F59;
+    --bs-secondary-rgb: 34, 63, 89;
     --bs-success: #28a745;
     --bs-info: #17a2b8;
     --bs-warning: #f3a712;
     --bs-danger: #dc3545;
 
-    /* Trial */
-    --theme-primary: #F23D3D; 
-    --theme-secondary: #F25757;
-    --theme-accent: #F28080; 
-    --theme-background: #A4A5A6; 
-    --theme-light-accent: #F2F2F2;
-    --theme-text: #0D0D0D; 
+    /* Theme Color Palette based on Stray Kids' This & That Concept Photo*/
+    --theme-primary: #122A59;
+    --theme-secondary: #223F59;
+    --theme-accent: #078C66;
+    --theme-background: #F0F1F2;
+    --theme-light-accent: #8FB2BF;
+    --theme-text: #00070D;
 }
 
 body{
