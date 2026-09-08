@@ -3,12 +3,12 @@
     --bs-primary-rgb: 18, 42, 89;
     --bs-secondary: #223F59;
     --bs-secondary-rgb: 34, 63, 89;
-    --bs-success: #28a745;
+    --bs-success: #078C66;
     --bs-info: #17a2b8;
     --bs-warning: #f3a712;
     --bs-danger: #dc3545;
 
-    /* Theme Color Palette based on Stray Kids' This & That Concept Photo*/
+    /* E-commerce Theme - Stray Kids "This & That" inspired */
     --theme-primary: #122A59;
     --theme-secondary: #223F59;
     --theme-accent: #078C66;
@@ -93,12 +93,11 @@ body{
 
 .stat-card .card-text{
     font-size: 1.8rem;
-    margin-bottom: 0
+    margin-bottom: 0;
 }
 
 .shadow-hover{
-    transition: transform 0.3s ease, box-shadow 0.3s ease; /*Added transform*/
-
+    transition: box-shadow 0.3s ease;
 }
 
 .shadow-hover:hover{
@@ -135,8 +134,60 @@ body{
 }
 
 .btn-primary:hover{
-    background-color: #0a4a32;
-    border-color: #0a4a32;
+    background-color: #0c1e40; /* darker shade of --theme-primary #122A59 for hover state */
+    border-color: #0c1e40;
+}
+
+.button {
+    background-color: var(--theme-accent);
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.button:hover {
+    background-color: #056b4d;
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.chart-container {
+    position: relative;
+    height: 280px;
+    width: 100%;
+}
+
+#lowStockAlert {
+    border-left: 4px solid var(--theme-accent);
+    transition: opacity 0.3s ease;
+}
+
+mark {
+    background-color: var(--theme-light-accent);
+    color: var(--theme-text);
+    padding: 0 2px;
+    border-radius: 3px;
+}
+
+.form-select:focus,
+.form-control:focus {
+    border-color: var(--theme-primary);
+    box-shadow: 0 0 0 0.2rem rgba(18, 42, 89, 0.15);
+}
+
+.table-warning {
+    --bs-table-bg: rgba(243, 167, 18, 0.12);
+}
+
+.table-danger {
+    --bs-table-bg: rgba(220, 53, 69, 0.12);
+}
+
+.toast {
+    min-width: 260px;
 }
 
 @media (max-width: 768px) {
@@ -147,6 +198,10 @@ body{
 
     .stat-card .card-text {
         font-size: 1.4rem;
+    }
+
+    .chart-container {
+        height: 220px;
     }
 }
 
