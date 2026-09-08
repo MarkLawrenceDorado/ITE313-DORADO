@@ -146,7 +146,6 @@ function renderInventoryTable(products, highlightQuery = '') {
     const resultCount = document.getElementById('inventoryResultCount');
     if (!tableBody) return;
 
-    // Clear existing rows
     tableBody.innerHTML = '';
 
     if (products.length === 0) {
@@ -366,7 +365,7 @@ function simulateRealTimeUpdate() {
         showToast(`${product.name} stock ${direction} by ${Math.abs(change)} (now ${product.quantity}).`, 'info');
     }
 }
--
+
 function showToast(message, type = 'info') {
     const container = document.getElementById('toastContainer');
     if (!container) return;

@@ -1,0 +1,20 @@
+{
+    "products": [
+        { "id": 1, "sku": "ELEC-001", "name": "Wireless Earbuds", "category": "Electronics", "quantity": 84, "unit_price": 49.99, "supplier": "SoundTech Co." },
+        { "id": 2, "sku": "ELEC-002", "name": "Smartwatch Series 5", "category": "Electronics", "quantity": 12, "unit_price": 129.99, "supplier": "SoundTech Co." },
+        { "id": 3, "sku": "ELEC-003", "name": "USB-C Fast Charger", "category": "Electronics", "quantity": 0, "unit_price": 19.99, "supplier": "PowerGear" },
+        { "id": 4, "sku": "APRL-001", "name": "Cotton T-Shirt", "category": "Apparel", "quantity": 210, "unit_price": 12.5, "supplier": "ThreadWorks" },
+        { "id": 5, "sku": "APRL-002", "name": "Denim Jacket", "category": "Apparel", "quantity": 8, "unit_price": 54.0, "supplier": "ThreadWorks" },
+        { "id": 6, "sku": "APRL-003", "name": "Running Shoes", "category": "Apparel", "quantity": 45, "unit_price": 79.99, "supplier": "StrideFit" },
+        { "id": 7, "sku": "HOME-001", "name": "Ceramic Coffee Mug", "category": "Home & Living", "quantity": 132, "unit_price": 8.99, "supplier": "HomeCraft" },
+        { "id": 8, "sku": "HOME-002", "name": "LED Desk Lamp", "category": "Home & Living", "quantity": 14, "unit_price": 24.99, "supplier": "BrightHome" },
+        { "id": 9, "sku": "HOME-003", "name": "Throw Pillow Set", "category": "Home & Living", "quantity": 0, "unit_price": 17.5, "supplier": "HomeCraft" },
+        { "id": 10, "sku": "BEAU-001", "name": "Facial Moisturizer", "category": "Beauty", "quantity": 60, "unit_price": 22.0, "supplier": "GlowLab" },
+        { "id": 11, "sku": "BEAU-002", "name": "Matte Lipstick", "category": "Beauty", "quantity": 5, "unit_price": 15.99, "supplier": "GlowLab" },
+        { "id": 12, "sku": "SPRT-001", "name": "Yoga Mat", "category": "Sports", "quantity": 38, "unit_price": 29.99, "supplier": "StrideFit" },
+        { "id": 13, "sku": "SPRT-002", "name": "Adjustable Dumbbell Set", "category": "Sports", "quantity": 3, "unit_price": 149.0, "supplier": "IronCore" },
+        { "id": 14, "sku": "ELEC-004", "name": "Bluetooth Speaker", "category": "Electronics", "quantity": 22, "unit_price": 39.99, "supplier": "SoundTech Co." },
+        { "id": 15, "sku": "HOME-004", "name": "Scented Candle Trio", "category": "Home & Living", "quantity": 76, "unit_price": 18.0, "supplier": "BrightHome" }
+    ],
+    "next_id": 16
+}
