@@ -1,3 +1,11 @@
+/* ==========================================================
+   dashboard.js
+   Handles auth check, greeting, charts, filters, search,
+   low-stock alerts, CSV export, and real-time simulation.
+   Depends on dataManager.js being loaded first.
+   ========================================================== */
+
+// ---------- Chart instances (kept in module-level state so they can be updated) ----------
 const charts = {
     categoryValue: null,
     stockStatus: null,
@@ -19,17 +27,24 @@ document.addEventListener('DOMContentLoaded', function () {
     const userNameSpan = document.getElementById('userName');
     if (userNameSpan) userNameSpan.textContent = username;
 
+    // ----- Data layer init -----
     initializeData();
     populateCategoryFilter();
     populateActivityTable();
+
+    // ----- First render -----
     refreshDashboard();
+
+    // ----- Event wiring -----
     setupFilterEvents();
     setupSearchEvent();
     setupExportEvent();
 
+    // ----- Real-time simulation (every 8 seconds) -----
     setInterval(simulateRealTimeUpdate, 8000);
 });
 
+// ---------- Greeting ----------
 function updateGreeting(username) {
     const greetingElement = document.getElementById('greeting');
     if (!greetingElement) return;
@@ -45,6 +60,7 @@ function updateGreeting(username) {
     greetingElement.textContent = `${timeOfDay}, ${username}!`;
 }
 
+// ---------- Master refresh: stats + table + charts + alerts ----------
 function refreshDashboard() {
     const filtered = applyFilters();
     updateStatistics();
@@ -53,6 +69,7 @@ function refreshDashboard() {
     renderCharts();
 }
 
+// ---------- Statistic Cards ----------
 function updateStatistics() {
     const stats = getStockStatistics();
 
@@ -67,6 +84,7 @@ function setStatCard(id, value) {
     if (el) el.textContent = value;
 }
 
+// ---------- Category Filter Dropdown ----------
 function populateCategoryFilter() {
     const select = document.getElementById('categoryFilter');
     if (!select) return;
@@ -80,6 +98,7 @@ function populateCategoryFilter() {
     });
 }
 
+// ---------- Filter & Search Events ----------
 function setupFilterEvents() {
     const categoryFilter = document.getElementById('categoryFilter');
     const stockStatusFilter = document.getElementById('stockStatusFilter');
@@ -133,6 +152,7 @@ function setupSearchEvent() {
     }, 300));
 }
 
+// Simple debounce so search/price inputs don't refire on every keystroke
 function debounce(fn, delay) {
     let timer;
     return function (...args) {
@@ -141,11 +161,13 @@ function debounce(fn, delay) {
     };
 }
 
+// ---------- Inventory Table Rendering (DOM manipulation) ----------
 function renderInventoryTable(products, highlightQuery = '') {
     const tableBody = document.getElementById('inventoryTableBody');
     const resultCount = document.getElementById('inventoryResultCount');
     if (!tableBody) return;
 
+    // Clear existing rows
     tableBody.innerHTML = '';
 
     if (products.length === 0) {
@@ -196,6 +218,7 @@ function getStatusBadge(status) {
     return map[status] || '<span class="badge bg-secondary">Unknown</span>';
 }
 
+// ---------- Low Stock Alert Banner ----------
 function renderLowStockAlert() {
     const alertBox = document.getElementById('lowStockAlert');
     const alertText = document.getElementById('lowStockAlertText');
@@ -214,6 +237,7 @@ function renderLowStockAlert() {
     alertBox.classList.remove('d-none');
 }
 
+// ---------- Charts (Chart.js) ----------
 function getThemeColors() {
     const styles = getComputedStyle(document.documentElement);
     return {
@@ -229,10 +253,20 @@ function getThemeColors() {
 function renderCharts() {
     if (typeof Chart === 'undefined') return; // Chart.js failed to load (e.g. no internet)
 
+    // Register the datalabels plugin globally (once) so charts can show
+    // permanent value/percentage labels instead of requiring a hover.
+    if (typeof ChartDataLabels !== 'undefined' && !Chart.registry.plugins.get('datalabels')) {
+        Chart.register(ChartDataLabels);
+    }
+
     const colors = getThemeColors();
     renderCategoryValueChart(colors);
     renderStockStatusChart(colors);
     renderTopProductsChart(colors);
+}
+
+function formatCurrency(value) {
+    return '$' + Number(value).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
 function renderCategoryValueChart(colors) {
@@ -264,8 +298,27 @@ function renderCategoryValueChart(colors) {
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
-            scales: { y: { beginAtZero: true } }
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: (ctx) => `Value: ${formatCurrency(ctx.parsed.y)}`
+                    }
+                },
+                datalabels: {
+                    anchor: 'end',
+                    align: 'top',
+                    color: '#333',
+                    font: { size: 10, weight: 'bold' },
+                    formatter: (value) => formatCurrency(value)
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { callback: (value) => formatCurrency(value) }
+                }
+            }
         }
     });
 }
@@ -283,6 +336,8 @@ function renderStockStatusChart(colors) {
         return;
     }
 
+    const total = data.reduce((sum, v) => sum + v, 0);
+
     charts.stockStatus = new Chart(canvas, {
         type: 'doughnut',
         data: {
@@ -295,7 +350,27 @@ function renderStockStatusChart(colors) {
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            plugins: { legend: { position: 'bottom' } }
+            plugins: {
+                legend: { position: 'bottom' },
+                tooltip: {
+                    callbacks: {
+                        label: (ctx) => {
+                            const value = ctx.parsed;
+                            const pct = total > 0 ? ((value / total) * 100).toFixed(1) : 0;
+                            return `${ctx.label}: ${value} product(s) (${pct}%)`;
+                        }
+                    }
+                },
+                datalabels: {
+                    color: '#ffffff',
+                    font: { size: 12, weight: 'bold' },
+                    formatter: (value) => {
+                        if (value === 0) return ''; // don't clutter the chart with 0% slices
+                        const pct = total > 0 ? ((value / total) * 100).toFixed(0) : 0;
+                        return `${value}\n(${pct}%)`;
+                    }
+                }
+            }
         }
     });
 }
@@ -330,12 +405,32 @@ function renderTopProductsChart(colors) {
             indexAxis: 'y',
             responsive: true,
             maintainAspectRatio: false,
-            plugins: { legend: { display: false } },
-            scales: { x: { beginAtZero: true } }
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: (ctx) => `Value: ${formatCurrency(ctx.parsed.x)}`
+                    }
+                },
+                datalabels: {
+                    anchor: 'end',
+                    align: 'end',
+                    color: '#333',
+                    font: { size: 10, weight: 'bold' },
+                    formatter: (value) => formatCurrency(value)
+                }
+            },
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    ticks: { callback: (value) => formatCurrency(value) }
+                }
+            }
         }
     });
 }
 
+// ---------- CSV Export ----------
 function setupExportEvent() {
     const exportBtn = document.getElementById('exportCsvBtn');
     if (!exportBtn) return;
@@ -353,6 +448,7 @@ function setupExportEvent() {
     });
 }
 
+// ---------- Real-Time Simulation ----------
 function simulateRealTimeUpdate() {
     const result = simulateInventoryChange();
     if (!result) return;
@@ -366,6 +462,7 @@ function simulateRealTimeUpdate() {
     }
 }
 
+// ---------- Toast Notifications ----------
 function showToast(message, type = 'info') {
     const container = document.getElementById('toastContainer');
     if (!container) return;
@@ -393,6 +490,7 @@ function showToast(message, type = 'info') {
     toastEl.addEventListener('hidden.bs.toast', () => toastEl.remove());
 }
 
+// ---------- Recent Activity Table (from Lab 3) ----------
 function populateActivityTable() {
     const tableBody = document.getElementById('activityTableBody');
     if (!tableBody) return;
@@ -427,6 +525,7 @@ function populateActivityTable() {
     });
 }
 
+// ---------- Logout ----------
 function setupLogout() {
     const logoutBtn = document.getElementById('logoutBtn');
     const logoutLink = document.getElementById('logoutLink');
